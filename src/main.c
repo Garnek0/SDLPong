@@ -54,6 +54,11 @@ int main(int argc, char** argv){
 	bool exit = false;
 	SDL_Event event;
 
+	// Wait for the window to finish its opening animation.
+	// I'm sure there's a better way to do this but for now this will do.
+	SDL_Delay(200);
+	nextTime = SDL_GetTicks();
+
 	while((!exit)){
 		while(SDL_PollEvent(&event)){
 			switch(event.type){

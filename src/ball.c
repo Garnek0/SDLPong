@@ -21,6 +21,9 @@
 ball_t ball;
 
 void ball_init(){
+	// Initialise rand() for the random ball tossing position and angle
+	srand(time(NULL)); 
+
 	ball.rect.h = BALL_SIDE;
 	ball.rect.w = BALL_SIDE;
 	ball.nextPlayerToss = 2;
@@ -29,7 +32,8 @@ void ball_init(){
 }
 
 void ball_toss(){
-	ball.rect.y = 600/2;
+	ball.rect.y = rand() % (600 - BALL_SIDE - PADDLE_EDGE_OFFSET);
+	if(ball.rect.y < PADDLE_EDGE_OFFSET) ball.rect.y = PADDLE_EDGE_OFFSET;
 	ball.rect.x = 800/2 - (BALL_SIDE/2);
 
 	if(ball.nextPlayerToss == 1){
@@ -40,7 +44,8 @@ void ball_toss(){
 		ball.nextPlayerToss = 1;
 	}
 
-	ball.speedY = BALL_DEFAULT_Y_SPEED;
+	ball.speedY = rand() % 3;
+	if(rand() % 2) ball.speedY = -ball.speedY;
 }
 
 void ball_draw(SDL_Renderer* renderer){
